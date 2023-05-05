@@ -36,8 +36,7 @@ sub.set_zlabel(r"u(x,t)", fontsize=14, fontproperties='Calibri', fontstyle='ital
 plt.title("Exact solution", fontproperties='Calibri', fontsize=18)
 plt.show()
 '''
-# appromiate solution
-ax = plt.axes(projection='3d')
+
 # Load the workbook
 workbook = openpyxl.load_workbook('solution.xlsx')
 # Select the worksheet
@@ -51,44 +50,52 @@ for row in worksheet.iter_rows(values_only=True):
     list1.append(row[0])
     list2.append(row[1])
     list3.append(row[2])
-fig = plt.figure(figsize=(10, 10), facecolor='white')
-sub = fig.add_subplot(111, projection='3d')
+
+
 X = list1
 Y = list2
 Z = list3
-# Exact solution
-fig = plt.figure()
+'''# Exact solution
+fig = plt.figure(figsize=(10, 10), facecolor='white')
 ax = fig.add_subplot(111, projection='3d')
 x1 = np.array(list1)
 y1 = np.array(list2)
 c = np.exp(-y1) * np.sin(np.pi * x1)
-'''
+sub = fig.add_subplot(111, projection='3d')
 surf = sub.plot_trisurf(X, Y, Z, cmap=plt.cm.brg)
-
+cb = fig.colorbar(surf, shrink=0.5, aspect=18)
 sub.set_xlabel(r"x", fontsize=14, fontproperties='Calibri', fontstyle='italic')
 sub.set_ylabel(r"t", fontsize=14, fontproperties='Calibri', fontstyle='italic')
 sub.set_zlabel(r"u_pre", fontsize=14, fontproperties='Calibri', fontstyle='italic')
-plt.title("Approximate solution", fontproperties='Calibri', fontsize=18)
+sub.set_title("Approximate solution", fontproperties='Calibri', fontsize=16)
+plt.savefig("Approximate solution", dpi=500)
+plt.show()
+'''
+x1 = np.array(list1)
+y1 = np.array(list2)
 
-
-
-
+c = np.exp(-y1) * np.sin(np.pi * x1)
+fig = plt.figure(figsize=(10, 10), facecolor='white')
+ax = fig.add_subplot(111, projection='3d')
 # Plot the surface
-surf = ax.plot_trisurf(X, Y, c, cmap=plt.cm.brg)
-cb = fig.colorbar(surf, shrink=0.3, aspect=18)  
-ax.set_xlabel(r"x", fontsize=14, fontproperties='Calibri', fontstyle='italic')
-ax.set_ylabel(r"t", fontsize=14, fontproperties='Calibri', fontstyle='italic')
-ax.set_zlabel(r"u_true", fontsize=14, fontproperties='Calibri', fontstyle='italic')
-plt.title("Exact solution", fontproperties='Calibri', fontsize=18)'''
+surf = ax.plot_trisurf(X, Y, Z, cmap=plt.cm.brg)
+cb = fig.colorbar(surf, shrink=0.3, aspect=18)
+ax.set_xlabel(r"x", fontsize=16, fontproperties='Calibri', fontstyle='italic')
+ax.set_ylabel(r"t", fontsize=16, fontproperties='Calibri', fontstyle='italic')
+ax.set_zlabel(r"u", fontsize=16, fontproperties='Calibri', fontstyle='italic')
+ax.set_title("Approximate solution", fontproperties='Calibri', fontsize=20)
+# plt.title("Approximate solution", fontproperties='Calibri', fontsize=16)
+plt.savefig("Approximate solution.png", dpi=400)
+plt.show()
 # Error
-fig = plt.figure()
+'''fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 surf = ax.plot_trisurf(X, Y, c - Z, cmap='rainbow')
 ax.set_xlabel(r"x", fontsize=12, fontproperties='Calibri', fontstyle='italic')
 ax.set_ylabel(r"t", fontsize=12, fontproperties='Calibri', fontstyle='italic')
 ax.set_zlabel(r"error", fontsize=12, fontproperties='Calibri', fontstyle='italic')
 plt.title("Absolute error", fontproperties='Calibri', fontsize=14)
-plt.savefig("absolute_error.png", dpi=800)
+plt.savefig("absolute_error.png", dpi=500)
 plt.show()
 print("max:", max(abs(c - Z)))
-print("min:", min(abs(c - Z)))
+print("min:", min(abs(c - Z)))'''
